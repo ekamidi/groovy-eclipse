@@ -15,6 +15,7 @@
  */
 package org.codehaus.groovy.eclipse.refactoring.actions;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -59,7 +60,6 @@ import org.eclipse.jdt.groovy.search.TypeLookupResult;
 import org.eclipse.jdt.internal.corext.CorextMessages;
 import org.eclipse.jdt.internal.corext.codemanipulation.AddImportsOperation.IChooseImportQuery;
 import org.eclipse.jdt.internal.corext.codemanipulation.CodeGenerationMessages;
-import org.eclipse.jdt.internal.corext.util.Messages;
 import org.eclipse.jdt.internal.corext.util.Resources;
 import org.eclipse.jdt.internal.ui.JavaUIStatus;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
@@ -240,7 +240,7 @@ public class AddImportOnSelectionAction extends AddImportOnSelectionAdapter {
                 List<TypeNameMatch> typesFound = typeData.getFoundInfos();
 
                 if (typesFound.isEmpty()) {
-                    fStatus = JavaUIStatus.createError(IStatus.ERROR, Messages.format(
+                    fStatus = JavaUIStatus.createError(IStatus.ERROR, MessageFormat.format(
                         CodeGenerationMessages.AddImportsOperation_error_notresolved_message,
                         BasicElementLabels.getJavaElementName(typeName)), null);
                     throw new OperationCanceledException();

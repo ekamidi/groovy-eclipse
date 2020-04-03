@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2019 the original author or authors.
+ * Copyright 2009-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.codehaus.groovy.eclipse.refactoring.core.extract;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,7 +83,6 @@ import org.eclipse.jdt.internal.corext.refactoring.JavaRefactoringDescriptorUtil
 import org.eclipse.jdt.internal.corext.refactoring.RefactoringCoreMessages;
 import org.eclipse.jdt.internal.corext.refactoring.util.ResourceUtil;
 import org.eclipse.jdt.internal.corext.util.JavaConventionsUtil;
-import org.eclipse.jdt.internal.corext.util.Messages;
 import org.eclipse.jdt.internal.ui.viewsupport.BasicElementLabels;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
@@ -205,7 +205,7 @@ public class ExtractGroovyLocalRefactoring extends Refactoring {
         change = doCreateChange(result, ((SubMonitor) monitor).split(2));
 
         if (getExcludedVariableNames().contains(getLocalName())) {
-            result.addWarning(Messages.format(RefactoringCoreMessages.ExtractTempRefactoring_another_variable, BasicElementLabels.getJavaElementName(getLocalName())));
+            result.addWarning(MessageFormat.format(RefactoringCoreMessages.ExtractTempRefactoring_another_variable, BasicElementLabels.getJavaElementName(getLocalName())));
         }
 
         result.merge(checkMatchingFragments());
@@ -660,14 +660,14 @@ public class ExtractGroovyLocalRefactoring extends Refactoring {
         IJavaProject javaProject = unit.getJavaProject();
         if (javaProject != null)
             project = javaProject.getElementName();
-        final String description = Messages.format(RefactoringCoreMessages.ExtractTempRefactoring_descriptor_description_short, BasicElementLabels.getJavaElementName(getLocalName()));
+        final String description = MessageFormat.format(RefactoringCoreMessages.ExtractTempRefactoring_descriptor_description_short, BasicElementLabels.getJavaElementName(getLocalName()));
         final String expression = getTextAt(getSelectedFragment().getStart(), getSelectedFragment().getEnd());
-        final String header = Messages.format(RefactoringCoreMessages.ExtractTempRefactoring_descriptor_description, new Object[] {
+        final String header = MessageFormat.format(RefactoringCoreMessages.ExtractTempRefactoring_descriptor_description, new Object[] {
             BasicElementLabels.getJavaElementName(getLocalName()), BasicElementLabels.getJavaCodeString(expression)
         });
         final JDTRefactoringDescriptorComment comment = new JDTRefactoringDescriptorComment(project, this, header);
-        comment.addSetting(Messages.format(RefactoringCoreMessages.ExtractTempRefactoring_name_pattern, BasicElementLabels.getJavaElementName(getLocalName())));
-        comment.addSetting(Messages.format(RefactoringCoreMessages.ExtractTempRefactoring_expression_pattern, BasicElementLabels.getJavaCodeString(expression)));
+        comment.addSetting(MessageFormat.format(RefactoringCoreMessages.ExtractTempRefactoring_name_pattern, BasicElementLabels.getJavaElementName(getLocalName())));
+        comment.addSetting(MessageFormat.format(RefactoringCoreMessages.ExtractTempRefactoring_expression_pattern, BasicElementLabels.getJavaCodeString(expression)));
         if (replaceAllOccurrences)
             comment.addSetting(RefactoringCoreMessages.ExtractTempRefactoring_replace_occurrences);
         final ExtractLocalDescriptor descriptor = RefactoringSignatureDescriptorFactory.createExtractLocalDescriptor(project, description, comment.asString(), arguments, RefactoringDescriptor.NONE);

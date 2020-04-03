@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2019 the original author or authors.
+ * Copyright 2009-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.codehaus.groovy.eclipse.wizards;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +60,6 @@ import org.eclipse.jdt.internal.core.util.Util;
 import org.eclipse.jdt.internal.corext.refactoring.StubTypeContext;
 import org.eclipse.jdt.internal.corext.refactoring.TypeContextChecker;
 import org.eclipse.jdt.internal.corext.util.JavaModelUtil;
-import org.eclipse.jdt.internal.corext.util.Messages;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
@@ -330,12 +330,12 @@ public class NewTypeWizard extends NewElementWizard {
                 if (root != null) {
                     try {
                         if (!root.getJavaProject().getProject().hasNature(GroovyNature.GROOVY_NATURE)) {
-                            status.setInfo(Messages.format(WizardMessages.NewTypeWizard_page1_info_groovyNature, root.getJavaProject().getElementName()));
+                            status.setInfo(MessageFormat.format(WizardMessages.NewTypeWizard_page1_info_groovyNature, root.getJavaProject().getElementName()));
                         }
 
                         String name = getTypeNameText();
                         if (ContentTypeUtils.isGroovyLikeFileName(name)) {
-                            status.setInfo(Messages.format(WizardMessages.NewTypeWizard_page1_info_fileExtension, name.substring(name.lastIndexOf('.'))));
+                            status.setInfo(MessageFormat.format(WizardMessages.NewTypeWizard_page1_info_fileExtension, name.substring(name.lastIndexOf('.'))));
                         }
 
                         if (!isEnclosingTypeSelected()) {
@@ -771,9 +771,9 @@ public class NewTypeWizard extends NewElementWizard {
                     String interfaceName = element.string;
                     Type type = TypeContextChecker.parseSuperInterface(interfaceName);
                     if (type == null) {
-                        status.setError(Messages.format(NewWizardMessages.NewTypeWizardPage_error_InvalidSuperInterfaceName, BasicElementLabels.getJavaElementName(interfaceName)));
+                        status.setError(MessageFormat.format(NewWizardMessages.NewTypeWizardPage_error_InvalidSuperInterfaceName, BasicElementLabels.getJavaElementName(interfaceName)));
                     } else if (type instanceof ParameterizedType && !JavaModelUtil.is50OrHigher(getJavaProject())) {
-                        status.setError(Messages.format(NewWizardMessages.NewTypeWizardPage_error_SuperInterfaceNotParameterized, BasicElementLabels.getJavaElementName(interfaceName)));
+                        status.setError(MessageFormat.format(NewWizardMessages.NewTypeWizardPage_error_SuperInterfaceNotParameterized, BasicElementLabels.getJavaElementName(interfaceName)));
                     }
                 }
 

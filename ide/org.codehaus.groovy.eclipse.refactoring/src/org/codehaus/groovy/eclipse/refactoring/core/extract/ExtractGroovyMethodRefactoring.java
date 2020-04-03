@@ -71,7 +71,6 @@ import org.eclipse.jdt.internal.corext.refactoring.JavaRefactoringArguments;
 import org.eclipse.jdt.internal.corext.refactoring.JavaRefactoringDescriptorUtil;
 import org.eclipse.jdt.internal.corext.refactoring.RefactoringCoreMessages;
 import org.eclipse.jdt.internal.corext.util.CodeFormatterUtil;
-import org.eclipse.jdt.internal.corext.util.Messages;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
@@ -225,7 +224,7 @@ public class ExtractGroovyMethodRefactoring extends Refactoring {
     private RefactoringStatus initialize(final JavaRefactoringArguments arguments) {
         String selection = arguments.getAttribute(JavaRefactoringDescriptorUtil.ATTRIBUTE_SELECTION);
         if (selection == null) {
-            return RefactoringStatus.createFatalErrorStatus(Messages.format(
+            return RefactoringStatus.createFatalErrorStatus(MessageFormat.format(
                 RefactoringCoreMessages.InitializableRefactoring_argument_not_exist, JavaRefactoringDescriptorUtil.ATTRIBUTE_SELECTION));
         }
 
@@ -237,7 +236,7 @@ public class ExtractGroovyMethodRefactoring extends Refactoring {
         if (tokenizer.hasMoreTokens())
             length = Integer.valueOf(tokenizer.nextToken()).intValue();
         if (offset < 0 || length < 0) {
-            return RefactoringStatus.createFatalErrorStatus(Messages.format(
+            return RefactoringStatus.createFatalErrorStatus(MessageFormat.format(
                 RefactoringCoreMessages.InitializableRefactoring_illegal_argument,
                 new Object[] {selection, JavaRefactoringDescriptorUtil.ATTRIBUTE_SELECTION}));
         }
@@ -245,7 +244,7 @@ public class ExtractGroovyMethodRefactoring extends Refactoring {
 
         String handle = arguments.getAttribute(JavaRefactoringDescriptorUtil.ATTRIBUTE_INPUT);
         if (handle == null) {
-            return RefactoringStatus.createFatalErrorStatus(Messages.format(
+            return RefactoringStatus.createFatalErrorStatus(MessageFormat.format(
                 RefactoringCoreMessages.InitializableRefactoring_argument_not_exist, JavaRefactoringDescriptorUtil.ATTRIBUTE_INPUT));
         }
 
@@ -257,7 +256,7 @@ public class ExtractGroovyMethodRefactoring extends Refactoring {
 
         String name = arguments.getAttribute(JavaRefactoringDescriptorUtil.ATTRIBUTE_NAME);
         if (name == null || name.length() == 0) {
-            return RefactoringStatus.createFatalErrorStatus(Messages.format(
+            return RefactoringStatus.createFatalErrorStatus(MessageFormat.format(
                 RefactoringCoreMessages.InitializableRefactoring_argument_not_exist, JavaRefactoringDescriptorUtil.ATTRIBUTE_NAME));
         }
         newMethodName = name;
